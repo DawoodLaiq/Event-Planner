@@ -1,0 +1,53 @@
+# Blender 4.1.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Concrete_Octagonal_concrete_lamp
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures/Concrete20_col.jpg
+map_Ns textures/Concrete20_rgh.jpg
+map_Bump -bm 0.400000 textures/Concrete20_nrm.jpg
+
+newmtl Octagonal_concrete_lamp
+Ns 490.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.479839 0.479839 0.479839
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl Octagonal_concrete_lamp.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.002897 0.002897 0.002897
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Octagonal_concrete_lamp.002
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Octagonal_concrete_lamp.003
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
