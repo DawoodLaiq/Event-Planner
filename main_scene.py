@@ -3,6 +3,7 @@ from tent import Tent
 from ursina.shaders import basic_lighting_shader as bls
 from tkinter import filedialog, Tk
 import os
+from tent_inside import Tent_Inside_Scene
 
 class Main_Scene(Entity):
     def __init__(self, app):
@@ -10,12 +11,28 @@ class Main_Scene(Entity):
         self.app = app
         self.count=0
         self.entities=[]
+        #if not data:
+        self.data= {
+                "Tent": { "name": "Marquee 1", "size_x" : 500, "size_y": 500, "cost" : 50000, "power" : 20000, "data": {
+                "AC": { "quantity" : 30, "cost" : 1500, "power" : 2000},
+                "Fans": { "quantity" : 10, "cost" : 150, "power" : 200},
+                "Speakers": { "quantity" : 7, "cost" : 100, "power" : 100},
+                "TV": { "quantity" : 2, "cost" : 250, "power" : 150},
+                "Lights": { "quantity" : 35, "cost" : 15, "power" : 20},
+                "Dustbins": { "quantity" : 5, "cost" : 5, "power" : 0},
+                "Total_Estimation": { "quantity" : 0, "cost" : 0, "power" : 0}
+            } } 
+            }
+        
         self.img_name=''
         self.ground = Entity(model="plane",scale=(200,1,200),collision="box",position=(0,0,0), texture_scale = (100,100),texture="white_cube",shader=None,enabled=False)
         self.entities.append(self.ground)
         Entity.default_shader = bls
         Draggable.default_shader = bls
         
+        for k,v in self.data.items():
+             if k == 'Tent':
+                e = Tent(name=v['name'],position=(0, 0, 15), tent_data=v['data'])
 
         self.create_tent_button = Button(
             text='Create Tent',
@@ -63,6 +80,20 @@ class Main_Scene(Entity):
             }
             e = Tent(position=(0, 0, self.count*15), cost=1000, tent_data=tent_data,name=str(self.count))
             self.entities.append(e)
+    
+    def create_tent_from_saved(self,data):
+            self.count += 1
+            tent_data = {
+                "AC": 30,
+                "Fans": 15,
+                "Speakers": 10,
+                "TV": 2,
+                "Lights": 30,
+                "Dustbins": 20,
+                "Total_Cost": 1500000
+            }
+            e = Tent(position=(0, 0, self.count*15), cost=1000, tent_data=tent_data,name=str(self.count))
+            self.entities.append(e)
 
     def enable(self):
         for entity in self.entities:
@@ -73,7 +104,7 @@ class Main_Scene(Entity):
             entity.enabled = False
 
     def go_to_scene2(self):
-        self.app.show_scene(self.app.tent_inside_scene)
+        self.app.show_scene(Tent_Inside_Scene(self.app,name="test",tent_data=self.data['Tent']['data']))
 
     def upload_image(self):
         # Hide the root window of Tkinter

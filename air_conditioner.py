@@ -6,7 +6,7 @@ class Air_Conditioner(Entity):
             parent=scene,
             model="Assets/AC.obj",
             color=color.azure,
-            scale=1,
+            scale=0.5,
             origin=(-5,-1,-7),
             position=position,
             collider='box',
@@ -32,7 +32,10 @@ class Air_Conditioner(Entity):
     
     def update(self):
         if self.dragging and mouse.left:
-            self.position = Vec3(mouse.world_point.x, self.position.y, mouse.world_point.z)
+            try:
+                self.position = Vec3(mouse.world_point.x, self.position.y, mouse.world_point.z)
+            except:
+                print("Not selected")
         
         else:
             self.dragging = False

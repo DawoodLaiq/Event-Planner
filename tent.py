@@ -1,7 +1,7 @@
 from ursina import *
 
 class Tent(Entity):
-    def __init__(self, position=(0,0,0), cost=1000, tent_data=dict(), name=str):
+    def __init__(self, position=(0,0,0),tent_data=dict(), name=str):
         super().__init__(
             parent=scene,
             model='Assets/Marque.obj',
@@ -12,10 +12,10 @@ class Tent(Entity):
             collider='box',
             plane_direction=(0, 1, 0)
         )
-        self.cost = cost
+        self.cost = 50000
         self.name = name
         self.dragging = False
-        self.tips = Tooltip(f"Marquee {self.name}\nAC: {tent_data.get('AC', 0)}\nFans: {tent_data.get('Fans', 0)}\nSpeakers: {tent_data.get('Speakers', 0)}\nLights: {tent_data.get('Lights', 0)}\nDustbins: {tent_data.get('Dustbins', 0)}\nTotal Cost: {tent_data.get('Total_Cost', 0)}")
+        self.tips = Tooltip(f"Tent: {self.name}\nAC: {tent_data.get('AC', {}).get('quantity', 0)}\nFans: {tent_data.get('Fans', {}).get('quantity', 0)}\nSpeakers: {tent_data.get('Speakers', {}).get('quantity', 0)}\nLights: {tent_data.get('Lights', {}).get('quantity', 0)}\nDustbins: {tent_data.get('Dustbins', {}).get('quantity', 0)}\nTotal Cost: {tent_data.get('Total_Estimation', {}).get('quantity', 0)}")
         self.tips.background.color = color.hsv(0,0,0,.8)
 
     def input(self, key):
@@ -37,7 +37,10 @@ class Tent(Entity):
 
     def update(self):
         if self.dragging and mouse.left:
-            self.position = Vec3(mouse.world_point.x, self.position.y, mouse.world_point.z)
+            try:
+                self.position = Vec3(mouse.world_point.x, self.position.y, mouse.world_point.z)
+            except:
+                print("Not selected")
         
         else:
             self.dragging = False

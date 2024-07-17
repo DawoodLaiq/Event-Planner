@@ -6,20 +6,23 @@ from dustbins import Dustbin
 from speakers import Speaker
 from ursina.shaders import basic_lighting_shader as bls
 from tv import TV
+from sidebar import Sidebar
 
 class Tent_Inside_Scene(Entity):
     def __init__(self, app, name, tent_data):
         super().__init__()
         self.app = app
+        self.tent_data = tent_data
         self.tent_name=name
         self.entities=[]
-        self.AC=tent_data['AC']
-        self.Speakers=tent_data['Speakers']
-        self.Dustbins=tent_data['Dustbins']
-        self.Fans=tent_data['Fans']
-        self.TV=tent_data['TV']
-        self.Lights=tent_data['Lights']
-        self.Total_Cost=tent_data['Total_Cost']
+        self.AC=tent_data['AC']['quantity']
+        self.Speakers=tent_data['Speakers']['quantity']
+        self.Dustbins=tent_data['Dustbins']['quantity']
+        self.Fans=tent_data['Fans']['quantity']
+        self.TV=tent_data['TV']['quantity']
+        self.Lights=tent_data['Lights']['quantity']
+        self.Total_Cost=tent_data['Total_Estimation']['cost']
+        
         self.ground = Entity(model='plane',position=(0,0,0), scale=(100, 1, 100),texture="white_cube",texture_scale=(20,20), color=color.light_gray,enabled=False)
         self.entities.append(self.ground)
         self.left_wall = Entity(parent=self.ground,model='cube',position=(20,0,0), scale=(1, 100, 100),texture="white_cube",texture_scale=(20,20), color=color.light_gray,enabled=False)
@@ -30,28 +33,34 @@ class Tent_Inside_Scene(Entity):
         self.entities.append(self.front_wall)
         self.back_wall = Entity(parent=self.ground,model='cube',position=(0,0,20), scale=(100, 100, 1),texture="white_cube",texture_scale=(20,20), color=color.light_gray,enabled=False)
         self.entities.append(self.back_wall)
+        
+        self.sidebar = Sidebar()
+        self.toggle_button = Button(
+            text='Toggle Sidebar',
+            color=color.azure,
+            scale=(0.2, 0.1),
+            position=(0.5, 0.4),
+            on_click=self.toggle_sidebar
+        )
+        
+        for e in range(self.AC):
+            Air_Conditioner(position=(0,0,int(e)*5),cost=1000, power=2000)
 
-        self.house = Entity(model='cube', scale=(2, 2, 2), color=color.red, position=(0, 1, 0),enabled=False)
-        self.entities.append(self.house)
+        for e in range(self.Fans):
+            Fan(position=(10,0,int(e)*5),cost=100, power=200)
 
-        for e in self.AC:
-            Air_Conditioner(position=(0,0,int(e)*10),cost=1000, power=2000)
+        for e in range(self.Dustbins):
+            Dustbin(position=(15,0,int(e)*5),cost=100, power=200)
 
-        for e in self.Fans:
-            Fan(position=(10,0,int(e)*10),cost=100, power=200)
-
-        for e in self.Dustbins:
-            Dustbin(position=(10,0,int(e)*10),cost=100, power=200)
-
-        for e in self.Speakers:
-            Speaker(position=(10,0,int(e)*10),cost=100, power=200)
-
-        for e in self.Lights:
-            Light(position=(10,0,int(e)*10),cost=100, power=200)
-
-        for e in self.TV:
+        for e in range(self.Speakers):
+            Speaker(position=(20,0,int(e)*5),cost=100, power=200)
+        
+        for e in range(self.Lights):
+            Light(position=(25,0,int(e)*5),cost=100, power=200)
+        """
+        for e in range(self.TV):
             TV(position=(10,0,int(e)*10),cost=100, power=200)
-
+        """
         self.button_to_scene1 = Button(
             text='Go Back',
             color=color.orange,
@@ -61,6 +70,16 @@ class Tent_Inside_Scene(Entity):
             enabled=False
         )
         self.entities.append(self.button_to_scene1)
+        self.create_AC_button = Button(
+            text='Add AC',
+            color=color.azure,
+            scale=(0.2, 0.1),
+            position=(0.2, 0.4),
+            on_click=self.create_AC,
+            enabled=False
+        )
+        self.entities.append(self.create_AC_button)
+        
         self.cam = EditorCamera()
         self.cam.position = (50, 50, -100)
         self.cam.enabled = False
@@ -78,5 +97,21 @@ class Tent_Inside_Scene(Entity):
         self.app.show_scene(self.app.main_scene)
     
     def create_AC(self):
-        e = Air_Conditioner()
+        e = Air_Conditioner(position=(0,0,0),cost=1000, power=2000)
+        self.entities.append(e)
+    
+    def toggle_sidebar(self):
+        self.sidebar.toggle()
+        self.update_sidebar()
+
+    def update_sidebar(self):
         
+        self.sidebar.update_info(self.tent_data)
+    
+    def input(self, key):
+        if key == 'p':
+            self.wp.enabled = False
+        elif key == 'u':
+            self.wp.enabled = True
+        
+    

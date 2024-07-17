@@ -7,7 +7,7 @@ class Fan(Entity):
             model="Assets/fan.obj",
             texture="Assets/fan_text.png",
             #color="#009E60",
-            scale=2,
+            scale=3,
             origin=(0,0,0),
             position=position,
             collider='box',
