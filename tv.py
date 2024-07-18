@@ -6,7 +6,7 @@ class TV(Entity):
             parent=scene,
             model="Assets/TV.obj",
             color="#1A2421",
-            scale=(5,10,5),
+            scale=(5,8,5),
             origin=(0,0,0),
             position=position,
             collider='box',

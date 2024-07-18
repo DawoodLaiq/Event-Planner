@@ -7,7 +7,7 @@ class Light(Entity):
             model="Assets/light.obj",
             texture="Assets/light_text.jpg",
             #color="#1A2421",
-            scale=2,
+            scale=1,
             origin=(0,0,0),
             position=position,
             collider='box',

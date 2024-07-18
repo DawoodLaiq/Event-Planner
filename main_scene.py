@@ -27,12 +27,11 @@ class Main_Scene(Entity):
         self.img_name=''
         self.ground = Entity(model="plane",scale=(200,1,200),collision="box",position=(0,0,0), texture_scale = (100,100),texture="white_cube",shader=None,enabled=False)
         self.entities.append(self.ground)
-        Entity.default_shader = bls
-        Draggable.default_shader = bls
         
         for k,v in self.data.items():
              if k == 'Tent':
                 e = Tent(name=v['name'],position=(0, 0, 15), tent_data=v['data'])
+                self.entities.append(e)
 
         self.create_tent_button = Button(
             text='Create Tent',
@@ -83,15 +82,6 @@ class Main_Scene(Entity):
     
     def create_tent_from_saved(self,data):
             self.count += 1
-            tent_data = {
-                "AC": 30,
-                "Fans": 15,
-                "Speakers": 10,
-                "TV": 2,
-                "Lights": 30,
-                "Dustbins": 20,
-                "Total_Cost": 1500000
-            }
             e = Tent(position=(0, 0, self.count*15), cost=1000, tent_data=tent_data,name=str(self.count))
             self.entities.append(e)
 
@@ -104,7 +94,7 @@ class Main_Scene(Entity):
             entity.enabled = False
 
     def go_to_scene2(self):
-        self.app.show_scene(Tent_Inside_Scene(self.app,name="test",tent_data=self.data['Tent']['data']))
+        self.app.show_scene(Tent_Inside_Scene(self.app,name=self.data['Tent']['name'],tent_data=self.data['Tent']['data']))
 
     def upload_image(self):
         # Hide the root window of Tkinter

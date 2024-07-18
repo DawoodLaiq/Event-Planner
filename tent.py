@@ -1,4 +1,5 @@
 from ursina import *
+from ursina.shaders import basic_lighting_shader as bls
 
 class Tent(Entity):
     def __init__(self, position=(0,0,0),tent_data=dict(), name=str):
@@ -10,7 +11,8 @@ class Tent(Entity):
             origin=(0,-1,0),
             position=position,
             collider='box',
-            plane_direction=(0, 1, 0)
+            plane_direction=(0, 1, 0),
+            shader=bls
         )
         self.cost = 50000
         self.name = name

@@ -1,5 +1,4 @@
 from ursina import *
-from ursina.shaders import basic_lighting_shader as bls
 from main_scene import Main_Scene
 from tent_inside import Tent_Inside_Scene
 from main_menu import Main_Menu
