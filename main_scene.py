@@ -1,6 +1,5 @@
 from ursina import *
 from tent import Tent
-from ursina.shaders import basic_lighting_shader as bls
 from tkinter import filedialog, Tk
 import os
 from tent_inside import Tent_Inside_Scene

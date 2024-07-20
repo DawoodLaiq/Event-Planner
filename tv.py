@@ -7,7 +7,7 @@ class TV(Entity):
             model="Assets/TV.obj",
             color="#1A2421",
             scale=(5,8,5),
-            origin=(0,0,0),
+            origin=(0,0.5,0),
             position=position,
             collider='box',
             plane_direction=(0, 1, 0)

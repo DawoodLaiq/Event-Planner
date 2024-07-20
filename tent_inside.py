@@ -6,7 +6,6 @@ from lights import Light
 from dustbins import Dustbin
 from speakers import Speaker
 from ursina.shaders import basic_lighting_shader as bls
-from ursina.shaders import matcap_shader as lws
 
 from tv import TV
 from sidebar import Sidebar
@@ -15,6 +14,7 @@ class Tent_Inside_Scene(Entity):
     def __init__(self, app, name, tent_data):
         super().__init__()
         self.app = app
+        Entity.default_shader = bls
         self.tent_data = tent_data
         self.tent_name=name
         self.entities=[]
@@ -38,9 +38,29 @@ class Tent_Inside_Scene(Entity):
             position=(0.5, 0.4),
             on_click=self.toggle_sidebar
         )
-        
-        for e in range(self.tent_data['AC']['quantity']):
-            Air_Conditioner(position=(-30,0,int(e)*5),cost=self.tent_data['AC']['cost'], power=self.tent_data['AC']['power'])
+        self.room_width=80
+        self.room_depth=160
+        #for e in range(self.tent_data['AC']['quantity']):
+        #    Air_Conditioner(position=(-30,-3,(e*5)-70),rotation=(0,90,0),cost=self.tent_data['AC']['cost'], power=self.tent_data['AC']['power'])
+        total_length = 2 * self.room_width + self.room_depth
+        gap = total_length / self.tent_data['AC']['quantity']
+
+        for i in range(self.tent_data['AC']['quantity']):
+            if i * gap < self.room_width:
+                x = i * gap - self.room_width / 2
+                z = -self.room_depth / 2
+                rotation = (0, 0, 0)
+            elif i * gap < self.room_width + self.room_depth:
+                x = -self.room_width / 2
+                z = (i * gap - self.room_width) - self.room_depth / 2
+                rotation = (0, 90, 0)
+            else:
+                x = (i * gap - (self.room_width + self.room_depth)) - self.room_width / 2
+                z = self.room_depth / 2
+                rotation = (0, 180, 0)
+            
+            Air_Conditioner(position=(x, -3, z), rotation=rotation, cost=self.tent_data['AC']['cost'], power=self.tent_data['AC']['power'])
+
 
         for e in range(self.tent_data['Fans']['quantity']):
             Fan(position=(10,0,int(e)*5),cost=self.tent_data['Fans']['cost'], power=self.tent_data['Fans']['power'])
@@ -59,7 +79,7 @@ class Tent_Inside_Scene(Entity):
         #self.tent_data['Total_Estimation']['power']
         
         for e in range(self.tent_data['TV']['quantity']):
-            TV(position=(0,0,int(e)*20),cost=self.tent_data['TV']['cost'], power=self.tent_data['TV']['power'])
+            TV(position=(0,0,(e*40)-50),cost=self.tent_data['TV']['cost'], power=self.tent_data['TV']['power'])
         
         self.button_to_scene1 = Button(
             text='Go Back',
@@ -89,7 +109,7 @@ class Tent_Inside_Scene(Entity):
     def enable(self):
         for entity in self.entities:
             entity.enabled = True
-            entity.shader = lws
+            entity.shader = bls
 
     def disable(self):
         for entity in self.entities:

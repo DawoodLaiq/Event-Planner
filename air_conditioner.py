@@ -5,7 +5,7 @@ class Air_Conditioner(Entity):
         super().__init__(
             parent=scene,
             model="Assets/AC.obj",
-            color=color.azure,
+            color=color.white,
             scale=0.5,
             origin=(-5,-1,-7),
             position=position,
