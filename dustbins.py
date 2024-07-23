@@ -1,16 +1,17 @@
 from ursina import *
 
 class Dustbin(Entity):
-    def __init__(self, position=(0,0,0), cost=int, power=int):
+    def __init__(self, position=(0,0,0), cost=int, power=int, **kwargs):
         super().__init__(
             parent=scene,
             model="Assets/bin.obj",
             color="#009E60",
-            scale=2,
+            scale=4,
             origin=(0,0,0),
             position=position,
             collider='box',
-            plane_direction=(0, 1, 0)
+            plane_direction=(0, 1, 0),
+            **kwargs
         )
         self.cost = cost
         self.power = power

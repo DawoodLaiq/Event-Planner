@@ -5,10 +5,11 @@ from main_menu import Main_Menu
 from sidebar import Sidebar
 
 app = Ursina()
-
+#window.fullscreen= True
 class MainApp():
     def __init__(self):
         super().__init__()
+        
         self.current_scene = None
         self.first = Main_Menu(self)
         self.main_scene = Main_Scene(self)
@@ -26,5 +27,6 @@ class MainApp():
 
 if __name__ == '__main__':
     game = MainApp()
+    
     app.run()
 

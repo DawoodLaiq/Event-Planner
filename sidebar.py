@@ -31,4 +31,4 @@ class Sidebar(WindowPanel):
         self.content = (content_data)
                 
         self.layout()
-        #self.add_script(Scrollable())
+        self.add_script(Scrollable())

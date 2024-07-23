@@ -1,0 +1,11 @@
+Model Information:
+* title:	Worker talk animation
+* source:	https://sketchfab.com/3d-models/worker-talk-animation-620e27e5126f40d080c5d4bffab9eedb
+* author:	honved444 (https://sketchfab.com/honved444)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Worker talk animation" (https://sketchfab.com/3d-models/worker-talk-animation-620e27e5126f40d080c5d4bffab9eedb) by honved444 (https://sketchfab.com/honved444) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

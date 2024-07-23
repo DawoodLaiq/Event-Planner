@@ -3,6 +3,7 @@ from tent import Tent
 from tkinter import filedialog, Tk
 import os
 from tent_inside import Tent_Inside_Scene
+from ursina.prefabs.grid_editor import PixelEditor
 
 class Main_Scene(Entity):
     def __init__(self, app):
@@ -24,7 +25,7 @@ class Main_Scene(Entity):
             }
         
         self.img_name=''
-        self.ground = Entity(model="plane",scale=(200,1,200),collision="box",position=(0,0,0), texture_scale = (100,100),texture="white_cube",shader=None,enabled=False)
+        self.ground = Entity(model="plane",scale=(200,1,200),collider="box",position=(0,0,0), texture_scale = (100,100),texture="white_cube",shader=None,enabled=False)
         self.entities.append(self.ground)
         
         for k,v in self.data.items():
@@ -42,7 +43,7 @@ class Main_Scene(Entity):
         )
         self.entities.append(self.create_tent_button)
         self.button_to_scene2 = Button(
-            text='Go to Scene 2',
+            text='Go inside the tent',
             color=color.azure,
             scale=(0.2, 0.1),
             position=(0.7, 0.4),
@@ -63,20 +64,39 @@ class Main_Scene(Entity):
         self.cam.position = (50, 50, -100)
         self.cam.enabled=False
         self.entities.append(self.cam)
+
+        self.roads = []
+        self.drawing_road = False
+        self.erasing_road = False
         
+        self.toggle_road_button = Button(
+            text='Draw Road',
+            color=color.azure,
+            scale=(0.2, 0.1),
+            position=(-0.5, -0.1),
+            on_click=self.toggle_road,
+            enabled=False
+        )
+        self.entities.append(self.toggle_road_button)
+        self.toggle_road_erase_button = Button(
+            text='Erase Road',
+            color=color.azure,
+            scale=(0.2, 0.1),
+            position=(-0.5, 0),
+            on_click=self.toggle_erase_road,
+            enabled=False
+        )
+        self.entities.append(self.toggle_road_erase_button)
+    def toggle_road(self):
+        self.drawing_road = not self.drawing_road
+
+    def toggle_erase_road(self):
+        self.erasing_road = not self.erasing_road
 
     def create_tent(self):
             self.count += 1
-            tent_data = {
-                "AC": 30,
-                "Fans": 15,
-                "Speakers": 10,
-                "TV": 2,
-                "Lights": 30,
-                "Dustbins": 20,
-                "Total_Cost": 1500000
-            }
-            e = Tent(position=(0, 0, self.count*15), cost=1000, tent_data=tent_data,name=str(self.count))
+            
+            e = Tent(position=(0, 0, self.count*15), cost=1000, tent_data=self.data['Tent']['data'],name=str(self.data['Tent']['name']))
             self.entities.append(e)
     
     def create_tent_from_saved(self,data):
@@ -114,3 +134,31 @@ class Main_Scene(Entity):
                 self.ground.texture_scale = (1,1)
         root.destroy()
 
+
+    def update(self):
+        if self.drawing_road:
+            self.draw_road_segment()
+        elif self.erasing_road:
+            self.erase_road_segment()
+
+    def draw_road_segment(self):
+        # Get the current position of the mouse on the plane
+        
+        if mouse.world_point:
+            position = Vec3(mouse.world_point.x, 0.1, mouse.world_point.z)
+            road_segment = Entity(
+                model='quad',
+                color=color.black,
+                rotation=(90,0,0),
+                scale=(2, 2, 0.1),  # Adjust the width and height as needed
+                position=position,
+                collider="box"
+            )
+            self.roads.append(road_segment)
+
+    def erase_road_segment(self):
+        for road in self.roads:
+            if road.hovered:
+                destroy(road)
+                self.roads.remove(road)
+                break

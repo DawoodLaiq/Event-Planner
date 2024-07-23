@@ -2,11 +2,11 @@ from ursina import *
 from ursina.shaders import basic_lighting_shader as bls
 
 class Tent(Entity):
-    def __init__(self, position=(0,0,0),tent_data=dict(), name=str):
+    def __init__(self, position=(0,0,0),cost=int,tent_data=dict(), name=str):
         super().__init__(
             parent=scene,
             model='Assets/Marque.obj',
-            color=color.azure,
+            color=color.gray,
             scale=1,
             origin=(0,-1,0),
             position=position,
@@ -14,10 +14,10 @@ class Tent(Entity):
             plane_direction=(0, 1, 0),
             shader=bls
         )
-        self.cost = 50000
+        self.cost = cost
         self.name = name
         self.dragging = False
-        self.tips = Tooltip(f"Tent: {self.name}\nAC: {tent_data.get('AC', {}).get('quantity', 0)}\nFans: {tent_data.get('Fans', {}).get('quantity', 0)}\nSpeakers: {tent_data.get('Speakers', {}).get('quantity', 0)}\nLights: {tent_data.get('Lights', {}).get('quantity', 0)}\nDustbins: {tent_data.get('Dustbins', {}).get('quantity', 0)}\nTotal Cost: {tent_data.get('Total_Estimation', {}).get('quantity', 0)}")
+        self.tips = Tooltip(f"Tent Name: {self.name}\nAC: {tent_data.get('AC', {}).get('quantity', 0)}\nFans: {tent_data.get('Fans', {}).get('quantity', 0)}\nSpeakers: {tent_data.get('Speakers', {}).get('quantity', 0)}\nLights: {tent_data.get('Lights', {}).get('quantity', 0)}\nDustbins: {tent_data.get('Dustbins', {}).get('quantity', 0)}\nTotal Cost: {tent_data.get('Total_Estimation', {}).get('quantity', 0)}")
         self.tips.background.color = color.hsv(0,0,0,.8)
 
     def input(self, key):

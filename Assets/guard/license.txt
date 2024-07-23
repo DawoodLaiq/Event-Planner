@@ -1,0 +1,11 @@
+Model Information:
+* title:	Guard
+* source:	https://sketchfab.com/3d-models/guard-1e3307732bbf4453b30f021bfec5bcaf
+* author:	Q.SARDOR (https://sketchfab.com/qsardor57913)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Guard" (https://sketchfab.com/3d-models/guard-1e3307732bbf4453b30f021bfec5bcaf) by Q.SARDOR (https://sketchfab.com/qsardor57913) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
