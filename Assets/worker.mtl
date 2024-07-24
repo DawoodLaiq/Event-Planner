@@ -1,0 +1,112 @@
+# Blender 4.1.1 MTL File: 'None'
+# www.blender.org
+
+newmtl Material.010
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Material.010_baseColor.png
+
+newmtl Material.012
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Material.012_baseColor.png
+
+newmtl Std_Eye_L.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Eye_L.003_baseColor.png
+
+newmtl Std_Eye_R.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Eye_R.003_baseColor.png
+
+newmtl Std_Nails.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Nails.003_baseColor.jpeg
+
+newmtl Std_Skin_Arm.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Skin_Arm.003_baseColor.png
+
+newmtl Std_Skin_Body.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Skin_Body.003_baseColor.png
+
+newmtl Std_Skin_Head.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Skin_Head.003_baseColor.png
+
+newmtl Std_Skin_Leg.003
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Std_Skin_Leg.003_baseColor.png
+
+newmtl obj_default.001
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd C:/obj_default.001_baseColor.png
+map_d C:/obj_default.001_baseColor.png
+
+newmtl shirt
+Ns 14.142129
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/shirt_baseColor.jpeg

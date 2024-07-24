@@ -5,7 +5,7 @@ from main_menu import Main_Menu
 from sidebar import Sidebar
 
 app = Ursina()
-#window.fullscreen= True
+window.fullscreen= True
 class MainApp():
     def __init__(self):
         super().__init__()
@@ -16,7 +16,6 @@ class MainApp():
         
         self.show_scene(self.first)
 
-    
 
     def show_scene(self, scene):
         if self.current_scene:

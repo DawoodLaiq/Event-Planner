@@ -5,8 +5,9 @@ from fans import Fan
 from lights import Light
 from dustbins import Dustbin
 from speakers import Speaker
-from ursina.shaders import basic_lighting_shader as bls
-
+from ursina.shaders import lit_with_shadows_shader as bls
+from guard import Guard
+from worker import Worker
 from tv import TV
 from sidebar import Sidebar
 
@@ -57,6 +58,16 @@ class Tent_Inside_Scene(Entity):
         for e in range(self.tent_data['Speakers']['quantity']):
             en = Speaker(position=(15,0,(e*5)-50),cost=self.tent_data['Speakers']['cost'], power=self.tent_data['Speakers']['power'])
             self.entities.append(en)
+
+        en = Guard(position=(5,0,0), cost=2000, power=0)
+        self.entities.append(en)
+        
+        en2 = Guard(position=(10,0,0), cost=2000, power=0)
+        self.entities.append(en2)
+
+        for e in range(5):
+            en = Worker(position=(5*e,0,10), cost=2000, power=0)
+            self.entities.append(en)
         
         self.button_to_scene1 = Button(
             text='Go Back',
@@ -72,7 +83,7 @@ class Tent_Inside_Scene(Entity):
             icon='Assets/img_ac.png',
             color=color.azure,
             scale=(0.2, 0.3),
-            position=(-0.5, 0.4),
+            position=(-0.8, 0.4),
             on_click=self.create_AC,
             enabled=False
         )

@@ -3,6 +3,7 @@ from tent import Tent
 from tkinter import filedialog, Tk
 import os
 from tent_inside import Tent_Inside_Scene
+from guard import Guard
 from ursina.prefabs.grid_editor import PixelEditor
 
 class Main_Scene(Entity):
@@ -37,7 +38,7 @@ class Main_Scene(Entity):
             text='Create Tent',
             color=color.azure,
             scale=(0.2, 0.1),
-            position=(-0.5, 0.4),
+            position=(-0.8, 0.45),
             on_click=self.create_tent,
             enabled=False
         )
@@ -55,7 +56,7 @@ class Main_Scene(Entity):
             text='Upload Image',
             color=color.azure,
             scale=(0.2, 0.1),
-            position=(-0.5, -0.2),
+            position=(-0.8, 0.2),
             on_click=self.upload_image,
             enabled=False
         )
@@ -69,24 +70,44 @@ class Main_Scene(Entity):
         self.drawing_road = False
         self.erasing_road = False
         
+        self.add_guard_button = Button(
+            text='Add guard',
+            color=color.azure,
+            scale=(0.2, 0.1),
+            position=(-0.8, 0),
+            on_click=self.add_guard,
+            enabled=False
+        )
+        self.entities.append(self.add_guard_button)
+        
+        
         self.toggle_road_button = Button(
             text='Draw Road',
             color=color.azure,
             scale=(0.2, 0.1),
-            position=(-0.5, -0.1),
+            position=(-0.8, -0.2),
             on_click=self.toggle_road,
             enabled=False
         )
         self.entities.append(self.toggle_road_button)
+
         self.toggle_road_erase_button = Button(
             text='Erase Road',
             color=color.azure,
             scale=(0.2, 0.1),
-            position=(-0.5, 0),
+            position=(-0.8, -0.4),
             on_click=self.toggle_erase_road,
             enabled=False
         )
         self.entities.append(self.toggle_road_erase_button)
+
+
+
+    def add_guard(self):
+        e = Guard(position=(5,0,0), cost=2000, power=0)
+        self.entities.append(e)
+
+
     def toggle_road(self):
         self.drawing_road = not self.drawing_road
 
@@ -108,9 +129,18 @@ class Main_Scene(Entity):
         for entity in self.entities:
             entity.enabled = True
 
+        for road in self.roads:
+            road.enabled = True
+
     def disable(self):
         for entity in self.entities:
             entity.enabled = False
+        
+        for road in self.roads:
+            road.enabled = False
+        
+        self.drawing_road = False
+        self.erasing_road = False
 
     def go_to_scene2(self):
         self.app.show_scene(Tent_Inside_Scene(self.app,name=self.data['Tent']['name'],tent_data=self.data['Tent']['data']))
@@ -136,9 +166,9 @@ class Main_Scene(Entity):
 
 
     def update(self):
-        if self.drawing_road:
+        if self.drawing_road and mouse.left:
             self.draw_road_segment()
-        elif self.erasing_road:
+        elif self.erasing_road and mouse.left:
             self.erase_road_segment()
 
     def draw_road_segment(self):

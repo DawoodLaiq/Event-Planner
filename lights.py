@@ -1,6 +1,7 @@
 from ursina import *
 
 class Light(Entity):
+    currently_dragged_entity = None
     def __init__(self, position=(0,0,0), cost=int, power=int):
         super().__init__(
             parent=scene,
@@ -23,8 +24,14 @@ class Light(Entity):
         self.light.intensity = self.power / 5
     
     def input(self, key):
-        if held_keys['shift'] and self.hovered:
-            self.dragging = True if mouse.left else False
+        if held_keys['shift'] and self.hovered and Light.currently_dragged_entity is None:
+            if mouse.left:
+                Light.currently_dragged_entity = self
+                self.dragging = True
+        elif key == 'left mouse up':
+            if self.dragging:
+                self.dragging = False
+                Light.currently_dragged_entity = None
         elif key == 'r' and self.hovered:
             self.rotation_y += 90
         elif key == 't' and self.hovered:
@@ -35,7 +42,7 @@ class Light(Entity):
             self.tips.enabled = False
     
     def update(self):
-        if self.dragging and mouse.left:
+        if self.dragging:
             try:
                 self.position = (mouse.world_point.x, self.position.y, mouse.world_point.z)
             except:

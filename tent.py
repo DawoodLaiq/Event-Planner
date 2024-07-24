@@ -2,6 +2,7 @@ from ursina import *
 from ursina.shaders import basic_lighting_shader as bls
 
 class Tent(Entity):
+    currently_dragged_entity = None
     def __init__(self, position=(0,0,0),cost=int,tent_data=dict(), name=str):
         super().__init__(
             parent=scene,
@@ -31,8 +32,14 @@ class Tent(Entity):
             self.scale *= 1.1  # Increase scale by 10%
         elif key == 'down arrow' and self.hovered:
             self.scale *= 0.9  # Decrease scale by 10%
-        elif held_keys['shift'] and self.hovered:
-            self.dragging = True if mouse.left else False
+        elif held_keys['shift'] and self.hovered and Tent.currently_dragged_entity is None:
+            if mouse.left:
+                Tent.currently_dragged_entity = self
+                self.dragging = True
+        elif key == 'left mouse up':
+            if self.dragging:
+                self.dragging = False
+                Tent.currently_dragged_entity = None
         elif key == 'backspace' and self.hovered:
             destroy(self)
             self.tips.enabled = False
