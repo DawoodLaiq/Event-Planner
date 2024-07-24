@@ -1,9 +1,10 @@
 from ursina import *
 from tent import Tent
-from tkinter import filedialog, Tk
+#from tkinter import filedialog, Tk
 import os
 from tent_inside import Tent_Inside_Scene
 from guard import Guard
+from ursina.prefabs.file_browser import FileBrowser
 from ursina.prefabs.grid_editor import PixelEditor
 
 class Main_Scene(Entity):
@@ -146,23 +147,20 @@ class Main_Scene(Entity):
         self.app.show_scene(Tent_Inside_Scene(self.app,name=self.data['Tent']['name'],tent_data=self.data['Tent']['data']))
 
     def upload_image(self):
-        # Hide the root window of Tkinter
-        root = Tk()
-        root.withdraw()
-        # Open file dialog
-        initial_dir = os.getcwd()
-        file_path = filedialog.askopenfilename(initialdir=initial_dir, filetypes=[("Image files", "*.png *.jpg *.jpeg *.bmp")])
-        if file_path:
-            
-            # Load the selected image as a texture
-            
-            self.img_name=file_path
+        self.file_browser = FileBrowser(file_types=('.png', '.jpg', '.jpeg','.PNG'), position=(0,0), on_submit=self.on_file_selected)
+        self.file_browser.open()
+
+    def on_file_selected(self, paths):
+        if paths:
+            initial_dir = os.getcwd()
+            file_path = paths[0]
             if self.ground.enabled:
                 path = os.path.relpath(file_path, initial_dir)
+                print(path)
                 texture = load_texture(path)
                 self.ground.texture = texture
-                self.ground.texture_scale = (1,1)
-        root.destroy()
+                self.ground.texture_scale = (1, 1)
+                self.file_browser.close()
 
 
     def update(self):

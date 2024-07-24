@@ -5,7 +5,7 @@ class TV(Entity):
     def __init__(self, position=(0,0,0), cost=int, power=int):
         super().__init__(
             parent=scene,
-            model="Assets/TV.obj",
+            model="Assets/TV.gltf",
             color="#1A2421",
             scale=(5,8,5),
             origin=(0,0.5,0),

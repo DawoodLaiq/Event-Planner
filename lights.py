@@ -5,10 +5,10 @@ class Light(Entity):
     def __init__(self, position=(0,0,0), cost=int, power=int):
         super().__init__(
             parent=scene,
-            model="Assets/light.obj",
-            texture="Assets/light_text.jpg",
-            #color="#1A2421",
-            scale=1,
+            model="Assets/light.gltf",
+            #texture="Assets/light_text.jpg",
+            color="#1A2421",
+            scale=0.02,
             origin=(0,0,0),
             position=position,
             collider='box',

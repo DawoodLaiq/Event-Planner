@@ -7,10 +7,8 @@ class Main_Menu(Entity):
         super().__init__()
         self.app = app
         self.entities=[]
-        #self.daudsons_logo=Entity(model="quad", position=(2,-1,-1),scale=(6,1.5,1),texture="Assets/daudsons_logo.jpeg")
-        #self.entities.append(self.daudsons_logo)
         self.title = Text('Miqaat Simulations')
-        self.title.font = 'arial bold'
+        #self.title.font = 'arial bold'
         self.title.scale = 5
         self.title.position = (-0.5,0.2,0)
         self.entities.append(self.title)
